@@ -10,7 +10,7 @@ function EmailVerification() {
         <AuthLayout>
             <Link
                 to={"/"}
-                className="font-semibold flex gap-3 items-center text-white transition-all duration-200 hover:text-blue-500"
+                className="w-fit font-semibold flex gap-3 items-center text-white transition-all duration-200 hover:text-blue-500"
             >
                 <BiLeftArrowAlt className="ml-2" size={16} />
                 <span>Home</span>
