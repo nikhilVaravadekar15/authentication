@@ -1,4 +1,7 @@
 import React from 'react'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 function RootLayout({
   children,
@@ -6,9 +9,22 @@ function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="h-screen w-screen bg-black text-white antialiased overflow-hidden relative z-0">
+    <main className="h-screen w-screen bg-black text-white antialiased overflow-hidden relative z-0">
       {children}
-    </div>
+      <ToastContainer
+        limit={1}
+        theme="dark"
+        autoClose={5000}
+        position="top-center"
+        rtl={false}
+        draggable={true}
+        newestOnTop={false}
+        closeOnClick={true}
+        pauseOnHover={false}
+        hideProgressBar={false}
+        pauseOnFocusLoss={false}
+      />
+    </main>
   )
 }
 

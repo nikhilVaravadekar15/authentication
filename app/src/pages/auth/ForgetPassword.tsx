@@ -2,20 +2,14 @@ import {
     BiLeftArrowAlt,
     BiRightArrowAlt
 } from "react-icons/bi"
-import { z } from 'zod';
 import { useFormik } from 'formik';
 import { Link } from "react-router-dom"
 import { TEmail } from "../../types";
 import AuthLayout from "../../components/layout/AuthLayout"
+import { emailSchema } from "../../zod";
 
 
 function ForgetPassword() {
-
-    const formSchema = z.object({
-        email: z.string()
-            .min(1, "Required")
-            .email("Invalid email address")
-    })
 
     const formik = useFormik<TEmail>({
         initialValues: {
@@ -23,7 +17,7 @@ function ForgetPassword() {
         },
         validate: (values: TEmail) => {
             const errors: Partial<TEmail> = {};
-            const result = formSchema.safeParse(values)
+            const result = emailSchema.safeParse(values)
 
             if (!result.success) {
                 const formErrors = result.error.format()
@@ -39,7 +33,6 @@ function ForgetPassword() {
             alert(JSON.stringify(values, null, 2));
         },
     });
-
 
 
     return (

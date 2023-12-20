@@ -2,27 +2,14 @@ import {
     BiLeftArrowAlt,
     BiRightArrowAlt
 } from "react-icons/bi"
-import { z } from "zod"
-import { Link } from "react-router-dom"
 import { useFormik } from "formik"
+import { Link } from "react-router-dom"
+import { signupSchema } from "../../zod"
 import { TUsersignup } from "../../types"
 import AuthLayout from '../../components/layout/AuthLayout'
 
 
 function Signup() {
-
-    const formSchema = z.object({
-        fullname: z.string()
-            .min(1, "Required")
-            .max(64, "Fullname must be less than 64 characters"),
-        email: z.string()
-            .min(1, "Required")
-            .email("Invalid email address"),
-        password: z.string()
-            .min(1, "Required")
-            .min(8, "Password must be greater than 8 characters")
-            .max(12, "Password must be less than 12 characters")
-    })
 
     const formik = useFormik<TUsersignup>({
         initialValues: {
@@ -32,7 +19,7 @@ function Signup() {
         },
         validate: (values: TUsersignup) => {
             const errors: Partial<TUsersignup> = {};
-            const result = formSchema.safeParse(values)
+            const result = signupSchema.safeParse(values)
 
             if (!result.success) {
                 const formErrors = result.error.format()

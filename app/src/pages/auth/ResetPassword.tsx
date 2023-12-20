@@ -3,23 +3,17 @@ import {
     BiLeftArrowAlt,
     BiRightArrowAlt
 } from "react-icons/bi"
-import { z } from "zod"
 import { useFormik } from "formik"
-import { useParams } from "react-router-dom";
 import { TPassword } from "../../types";
+import { passwordSchema } from "../../zod";
+import { useParams } from "react-router-dom";
 import AuthLayout from "../../components/layout/AuthLayout"
+
 
 function ResetPassword() {
     // @ts-ignore
     const { token }: { token: string } = useParams();
     console.log(typeof (token), token)
-
-    const formSchema = z.object({
-        password: z.string()
-            .min(1, "Required")
-            .min(8, "Password must be greater than 8 characters")
-            .max(12, "Password must be less than 12 characters")
-    })
 
     const formik = useFormik<TPassword>({
         initialValues: {
@@ -27,7 +21,7 @@ function ResetPassword() {
         },
         validate: (values: TPassword) => {
             const errors: Partial<TPassword> = {};
-            const result = formSchema.safeParse(values)
+            const result = passwordSchema.safeParse(values)
 
             if (!result.success) {
                 const formErrors = result.error.format()

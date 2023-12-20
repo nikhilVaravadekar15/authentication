@@ -1,14 +1,13 @@
+import { z } from "zod"
+import {
+    signinSchema,
+    signupSchema,
+    emailSchema,
+    passwordSchema
+} from "../zod/index"
 
-export type TEmail = {
-    email: string
-}
+export type TEmail = z.infer<typeof emailSchema>
+export type TPassword = z.infer<typeof passwordSchema>
 
-export type TPassword = {
-    password: string
-}
-
-export type TUsersignin = TEmail & TPassword
-
-export type TUsersignup = TUsersignin & {
-    fullname: string
-}
+export type TUsersignin = z.infer<typeof signinSchema>
+export type TUsersignup = z.infer<typeof signupSchema>

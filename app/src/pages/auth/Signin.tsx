@@ -2,24 +2,14 @@ import {
     BiLeftArrowAlt,
     BiRightArrowAlt
 } from "react-icons/bi"
-import { z } from "zod"
-import { Link } from "react-router-dom"
 import { useFormik } from "formik";
+import { Link } from "react-router-dom"
+import { signinSchema } from "../../zod";
 import { TUsersignin } from "../../types";
 import AuthLayout from "../../components/layout/AuthLayout"
 
 
 function Signin() {
-
-    const formSchema = z.object({
-        email: z.string()
-            .min(1, "Required")
-            .email("Invalid email address"),
-        password: z.string()
-            .min(1, "Required")
-            .min(8, "Password must be greater than 8 characters")
-            .max(12, "Password must be less than 12 characters")
-    })
 
     const formik = useFormik<TUsersignin>({
         initialValues: {
@@ -28,7 +18,7 @@ function Signin() {
         },
         validate: (values: TUsersignin) => {
             const errors: Partial<TUsersignin> = {};
-            const result = formSchema.safeParse(values)
+            const result = signinSchema.safeParse(values)
 
             if (!result.success) {
                 const formErrors = result.error.format()

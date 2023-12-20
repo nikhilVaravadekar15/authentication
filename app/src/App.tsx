@@ -1,11 +1,10 @@
 import './App.css'
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Signin from './pages/auth/Signin';
 import Signup from './pages/auth/Signup';
+import Index from './pages/app/Index';
 import PasswordResetMail from './pages/auth/PasswordResetMail';
 import ForgetPassword from './pages/auth/ForgetPassword';
 import SignupVerified from './pages/auth/SignupVerified';
@@ -19,18 +18,13 @@ function App() {
 
   return (
     <RootLayout>
-      <div className="absolute">
-        <ToastContainer
-          limit={1}
-          theme={"dark"}
-        />
-      </div>
       <BrowserRouter>
         <Routes>
           <Route path="/">
             <Route index={true} element={<Home />} />
             <Route path="auth">
-              <Route index={true} path="sign-in" element={<Signin />} />
+              <Route index={true} element={<Signin />} />
+              <Route path="sign-in" element={<Signin />} />
               <Route path="sign-up" element={<Signup />} />
               <Route path="email-verification" element={<EmailVerification />} />
               <Route path="sign-up-verified" element={<SignupVerified />} />
@@ -38,6 +32,9 @@ function App() {
               <Route path="password-reset-mail" element={<PasswordResetMail />} />
               <Route path="reset-password/:token" element={<ResetPassword />} />
               <Route path="password-reset-done" element={<PasswordResetDone />} />
+            </Route>
+            <Route path="app">
+              <Route index={true} element={<Index />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Route>
