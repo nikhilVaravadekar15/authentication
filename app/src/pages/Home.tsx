@@ -8,8 +8,13 @@ function Home() {
             <div className="w-full h-full flex flex-col">
                 <div className="w-full p-4 flex items-center justify-between border shadow-sm shadow-white">
                     <div className="flex gap-3 items-center justify-center cursor-pointer">
-                        <img src="/react.svg" alt="logo" draggable={false} />
-                        <div>React + Fastapi (Authentication)</div>
+                        <img
+                            alt="logo"
+                            src="/logo.ico"
+                            draggable={false}
+                            className="rounded"
+                        />
+                        <div>React + Spring (Authentication)</div>
                     </div>
                     <div className="flex gap-3 items-center justify-center">
                         <Link

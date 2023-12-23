@@ -3,14 +3,28 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/react.svg" />
+  <link rel="icon" type="image/svg+xml" href="/logo.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>React + Fastapi | Authentication</title>
 
+  <style>
+    .preloader {
+      height: 96vh;
+      width: 96vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <div class="preloader">
+      <img src="/spinner.svg" alt="spinner">
+    </div>
+  </div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 
