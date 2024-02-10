@@ -14,11 +14,11 @@
 
 ## drizzle-kit
 ```
-    npx drizzle-kit generate:sqlite; 
-    npx drizzle-kit push:sqlite;
+    npx drizzle-kit generate:pg;
+    npx drizzle-kit push:pg;
 
     # To drop migrations
-    npx drizzle-kit drop 
+    npx drizzle-kit drop;
 ```
 
 "dev": "concurrently \"npx drizzle-kit push:sqlite;\" \"npx tsc --watch\" \"nodemon dist/index.js\""
