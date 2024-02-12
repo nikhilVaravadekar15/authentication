@@ -1,33 +1,56 @@
 import { eq } from "drizzle-orm";
 import { db } from "../database/index";
 import { user } from "../database/schema";
-import { TAuthSignup, TEmail } from "../types";
-
+import { TAuthSignup, TEmail, TPassword } from "../types";
 
 class UserRepository {
+  async createUser({
+    username,
+    email,
+    password: encryptedPassword,
+  }: TAuthSignup) {
+    return (
+      await db
+        .insert(user)
+        .values({
+          username: username,
+          email: email,
+          password: encryptedPassword,
+        })
+        .returning()
+    )[0];
+  }
 
-    async createUser({ username, email, password: encryptedPassword }: TAuthSignup) {
-        return (await db.insert(user).values({
-            username: username,
-            email: email,
-            password: encryptedPassword,
-        }).returning())[0];
-    }
+  async getUserByEmailID({ email }: TEmail) {
+    return (await db.select().from(user).where(eq(user.email, email)))[0];
+  }
 
-    async getUserByEmailID({ email }: TEmail) {
-        return (
-            await db.select().from(user).where(eq(user.email, email))
-        )[0];
-    }
+  async setUserVerification({ email, status }: TEmail & { status: boolean }) {
+    return (
+      await db
+        .update(user)
+        .set({
+          is_verified: status,
+        })
+        .where(eq(user.email, email))
+        .returning()
+    )[0];
+  }
 
-    async setUserVerification({ email, status }: TEmail & { status: boolean }) {
-        return (
-            await db.update(user).set({
-                is_verified: status
-            }).where(eq(user.email, email)).returning()
-        )[0];
-    }
-
+  async setUserUpdatedPassword({
+    email,
+    password: encryptedPassword,
+  }: TEmail & TPassword) {
+    return (
+      await db
+        .update(user)
+        .set({
+          password: encryptedPassword,
+        })
+        .where(eq(user.email, email))
+        .returning()
+    )[0];
+  }
 }
 
-export default new UserRepository()
+export default new UserRepository();

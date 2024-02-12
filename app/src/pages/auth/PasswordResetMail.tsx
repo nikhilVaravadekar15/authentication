@@ -1,8 +1,13 @@
+import React from "react";
 import { BsPatchCheck } from "react-icons/bs";
 import AuthLayout from "../../components/layout/AuthLayout";
+import { ForgotPasswordContext } from "../../components/provider/ForgotPasswordContextProvider";
+import { Navigate } from "react-router-dom";
 
 function PasswordResetMail() {
-  return (
+  const { email } = React.useContext(ForgotPasswordContext);
+
+  return email.email ? (
     <AuthLayout>
       <div className="font-semibold flex gap-3 items-center text-white transition-all duration-200">
         <BsPatchCheck
@@ -15,7 +20,7 @@ function PasswordResetMail() {
         <div className="mt-2 text-base text-gray-300">
           We have sent an instruction on how to reset your password to
           <span className="mx-1 font-medium text-blue-400 cursor-pointer">
-            elon_musk@gmail.com
+            {email.email}
           </span>
           . Please follow the instructions in the email.
         </div>
@@ -24,6 +29,10 @@ function PasswordResetMail() {
         </div>
       </div>
     </AuthLayout>
+  ) : (
+    <>
+      <Navigate to="/auth/forget-password" replace={true} />
+    </>
   );
 }
 

@@ -9,7 +9,7 @@ router.post("/api/auth/sign-in", authController.signIn);
 router.post("/api/auth/send-otp", authController.sendOtp);
 router.post("/api/auth/verify-otp", authController.verifyOtp);
 router.post("/api/auth/forget-password", authController.forgetPassword);
-// router.post("/api/auth/set-password", testController.test);
+router.post("/api/auth/reset-password", authController.resetPassword);
 
 router.get("/api/hello", testController.test);
 router.get("*", testController.notFound);

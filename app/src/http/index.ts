@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { TEmail, TUsersignin, TUsersignup } from "../types";
+import { TEmail, TPassword, TUsersignin, TUsersignup } from "../types";
 
 const axiosRequestConfig: AxiosRequestConfig = {
   baseURL: import.meta.env.VITE_PUBLIC_BASE_API_URL!,
@@ -38,6 +38,23 @@ export async function forgetPassword({ email }: TEmail) {
     "/api/auth/forget-password",
     {
       email: email,
+    },
+    axiosRequestConfig
+  );
+}
+
+export async function resetPassword({
+  token,
+  data,
+}: {
+  token: string;
+  data: TPassword;
+}) {
+  return await axios.post(
+    "/api/auth/reset-password",
+    {
+      token: token,
+      data: data,
     },
     axiosRequestConfig
   );

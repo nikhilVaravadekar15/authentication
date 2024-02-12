@@ -14,15 +14,13 @@ import { ForgotPasswordContext } from "../../components/provider/ForgotPasswordC
 
 function ForgetPassword() {
   const navigate = useNavigate();
-  const { email, setEmailDetails } = React.useContext(ForgotPasswordContext);
+  const { setEmailDetails } = React.useContext(ForgotPasswordContext);
 
   const forgetPasswordMutation = useMutation({
     mutationFn: async (data: TEmail) => {
-      console.log(data);
       return await forgetPassword(data);
     },
     onSuccess: (data: any) => {
-      console.log(data);
       setEmailDetails({
         email: data?.data?.user?.email,
       });
@@ -65,7 +63,6 @@ function ForgetPassword() {
     </>
   ) : (
     <AuthLayout>
-      <div className="h-6 border">{email.email}</div>
       <Link
         to={"/"}
         className="w-fit font-semibold flex gap-3 items-center text-white transition-all duration-200 hover:text-blue-500"
@@ -93,6 +90,7 @@ function ForgetPassword() {
                   name="email"
                   type="email"
                   placeholder="Email"
+                  autoComplete="off"
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"

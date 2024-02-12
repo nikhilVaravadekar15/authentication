@@ -1,15 +1,40 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import { TPassword } from "../../types";
 import { passwordSchema } from "../../zod";
-import { useParams } from "react-router-dom";
+import { resetPassword } from "../../http";
+import { useMutation } from "@tanstack/react-query";
 import AuthLayout from "../../components/layout/AuthLayout";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
+import Loader from "../../components/Loader";
 
 function ResetPassword() {
-  // @ts-ignore
-  const { token }: { token: string } = useParams();
-  console.log(typeof token, token);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  // # ISSUE
+  const token: string = searchParams.get("q")!;
+
+  const resetPasswordMutation = useMutation({
+    mutationFn: async (data: TPassword) => {
+      return await resetPassword({
+        token: token,
+        data: data,
+      });
+    },
+    onSuccess: () => {
+      return navigate("/auth/password-reset-done");
+    },
+    onError: (error: any) => {
+      console.log(error);
+      toast.error(error?.response?.data?.message);
+    },
+    onSettled: () => {
+      toast.dismiss();
+    },
+  });
 
   const formik = useFormik<TPassword>({
     initialValues: {
@@ -29,11 +54,15 @@ function ResetPassword() {
       return errors;
     },
     onSubmit: (values: TPassword) => {
-      alert(JSON.stringify(values, null, 2));
+      resetPasswordMutation.mutate(values);
     },
   });
 
-  return (
+  return resetPasswordMutation.isPending ? (
+    <>
+      <Loader />
+    </>
+  ) : (
     <AuthLayout>
       <a
         href="/"

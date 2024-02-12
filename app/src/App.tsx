@@ -31,7 +31,7 @@ function App() {
                 path="password-reset-mail"
                 element={<PasswordResetMail />}
               />
-              <Route path="reset-password/:token" element={<ResetPassword />} />
+              <Route path="reset-password" element={<ResetPassword />} />
               <Route
                 path="password-reset-done"
                 element={<PasswordResetDone />}
