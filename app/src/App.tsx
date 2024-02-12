@@ -1,21 +1,19 @@
-import './App.css'
+import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import Signin from './pages/auth/Signin';
-import Signup from './pages/auth/Signup';
-import Index from './pages/app/Index';
-import PasswordResetMail from './pages/auth/PasswordResetMail';
-import ForgetPassword from './pages/auth/ForgetPassword';
-import SignupVerified from './pages/auth/SignupVerified';
-import EmailVerification from './pages/auth/EmailVerification';
-import ResetPassword from './pages/auth/ResetPassword';
-import PasswordResetDone from './pages/auth/PasswordResetDone';
-import RootLayout from './components/layout/RootLayout'
-
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import Signin from "./pages/auth/Signin";
+import Signup from "./pages/auth/Signup";
+import Index from "./pages/app/Index";
+import PasswordResetMail from "./pages/auth/PasswordResetMail";
+import ForgetPassword from "./pages/auth/ForgetPassword";
+import SignupVerified from "./pages/auth/SignupVerified";
+import OtpVerification from "./pages/auth/OtpVerification";
+import ResetPassword from "./pages/auth/ResetPassword";
+import PasswordResetDone from "./pages/auth/PasswordResetDone";
+import RootLayout from "./components/layout/RootLayout";
 
 function App() {
-
   return (
     <RootLayout>
       <BrowserRouter>
@@ -26,12 +24,18 @@ function App() {
               <Route index={true} element={<Signin />} />
               <Route path="sign-in" element={<Signin />} />
               <Route path="sign-up" element={<Signup />} />
-              <Route path="email-verification" element={<EmailVerification />} />
+              <Route path="otp-verification" element={<OtpVerification />} />
               <Route path="sign-up-verified" element={<SignupVerified />} />
               <Route path="forget-password" element={<ForgetPassword />} />
-              <Route path="password-reset-mail" element={<PasswordResetMail />} />
+              <Route
+                path="password-reset-mail"
+                element={<PasswordResetMail />}
+              />
               <Route path="reset-password/:token" element={<ResetPassword />} />
-              <Route path="password-reset-done" element={<PasswordResetDone />} />
+              <Route
+                path="password-reset-done"
+                element={<PasswordResetDone />}
+              />
             </Route>
             <Route path="app">
               <Route index={true} element={<Index />} />
@@ -41,7 +45,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </RootLayout>
-  )
+  );
 }
 
-export default App
+export default App;

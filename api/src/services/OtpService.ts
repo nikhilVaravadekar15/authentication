@@ -21,12 +21,12 @@ class OtpService {
     }) {
         const expire_time = Date.now() + this.TIME_TO_LIVE
         const hash: string = await HashService.getHash(`${email}.${otp}.${expire_time}`) // hash = email + otp + expire_time
-        return `${hash}.${expire_time}`
+        return `${hash}+${expire_time}`
     }
 
     async verifyHashedOtp({ otp, email, hash }: TVerifyAccount) {
 
-        const [receivedHash, expire_time] = hash.split('.')
+        const [receivedHash, expire_time] = hash.split('+')
         const data: string = `${email}.${otp}.${expire_time}`
 
         if (Date.now() > +expire_time) {

@@ -3,7 +3,7 @@ export function verificationOtpEmailTemplate(
   { username, otp }: { username: string, otp: number }
 ) {
   return `
- <!doctype html>
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
   xmlns:o="urn:schemas-microsoft-com:office:office">
 
@@ -76,13 +76,31 @@ export function verificationOtpEmailTemplate(
 <body style="word-spacing:normal;background-color:#fafbfc;">
   <div style="background-color:#fafbfc;">
     <div style="margin:0px auto;max-width:600px;">
-      <div cellpadding="0" cellspacing="0" role="presentation" style="width:100%;align-items: center; border: 0;">
-        <div style="height: 80px; display: flex; align-items: center; justify-content: center;">
-          <div style="color: green;  text-shadow: 1px 2px #3b3939; font-size: xx-large; font-weight: 900;">
-            Auth
-          </div>
-        </div>
-      </div>
+      <table cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%; align-items: center;">
+        <tbody>
+          <tr>
+            <td
+              syle="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:20px;padding-top:20px;text-align:center;">
+              <div class="mj-column-per-100 mj-outlook-group-fix"
+                style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:middle;width:100%;">
+                <table cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:middle;" width="100%">
+                  <tbody>
+                    <tr>
+                      <td
+                        style="font-size:0px;padding:10px 25px;padding-right:25px;padding-left:25px;word-break:break-word;">
+                        <div
+                          style="height:64px;color: green;  text-shadow: 1px 2px #3b3939; font-size: xx-large; font-weight: 900;font-family:open Sans Helvetica, Arial, sans-serif;line-height:1;display: flex; align-items: center; justify-content: center;">
+                          Auth
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div style="background:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;">
@@ -116,8 +134,10 @@ export function verificationOtpEmailTemplate(
                       </td>
                     </tr>
                     <tr>
-                      <td style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                        <div style="height:64px;font-family:open Sans Helvetica, Arial, sans-serif;font-size:24px;font-weight:bold;line-height:1;display: flex; align-items: center; justify-content: center; color:#000000; background-color: #f3f3f3;">
+                      <td
+                        style="font-size:0px;padding:10px 25px;padding-right:25px;padding-left:25px;word-break:break-word;">
+                        <div
+                          style="height:64px;font-family:open Sans Helvetica, Arial, sans-serif;font-size:24px;font-weight:bold;line-height:1;text-align:center;color:#000000;display: flex; align-items: center; justify-content: center; background-color: #f3f3f3;">
                           ${otp}
                         </div>
                       </td>
@@ -154,7 +174,7 @@ export function verificationOtpEmailTemplate(
 </body>
 
 </html>
- `
+`
 }
 
 export function userOnboardingEmailTemplate() {

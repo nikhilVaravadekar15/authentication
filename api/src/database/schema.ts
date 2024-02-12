@@ -4,8 +4,6 @@ import {
     text,
     boolean,
     primaryKey,
-    uuid,
-    pgSchema,
 } from "drizzle-orm/pg-core"
 import { createId } from "@paralleldrive/cuid2";
 
@@ -14,7 +12,7 @@ export const user = pgTable(
     "user",
     {
         id: text("id").primaryKey().unique().notNull().$defaultFn(() => createId()),
-        username: text("username").notNull().unique(),
+        username: text("username").notNull(),
         email: text("email").notNull().unique(),
         password: text("password").notNull(),
         is_verified: boolean("is_verified").notNull().default(false),

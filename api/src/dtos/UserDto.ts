@@ -2,14 +2,13 @@ class UserDto {
 
     private username: string
     private email: string
-    private password: string
-    private token: string
-    private refreshToken?: string
+    private is_verified: boolean
 
-    constructor(username: string, email: string, password: string, token: string, refreshToken?: string) {
+    constructor(username: string, email: string, is_verified: boolean) {
         this.username = username
         this.email = email
-        this.password = password
-        this.token = token
+        this.is_verified = is_verified
     }
 }
+
+export default UserDto;

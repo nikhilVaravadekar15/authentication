@@ -7,9 +7,9 @@ const email = z.string()
 const password = z.string()
     .min(1, "Required")
     .min(8, "Password must be greater than 8 characters")
-    .max(12, "Password must be less than 12 characters")
+    .max(24, "Password must be less than 24 characters")
 
-const fullname = z.string()
+const username = z.string()
     .min(1, "Required")
     .max(64, "Fullname must be less than 64 characters")
 
@@ -27,7 +27,7 @@ export const signinSchema = z.object({
 })
 
 export const signupSchema = z.object({
-    fullname: fullname,
+    username: username,
     email: email,
     password: password
 })
