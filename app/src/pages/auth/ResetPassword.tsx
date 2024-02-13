@@ -14,8 +14,7 @@ import Loader from "../../components/Loader";
 function ResetPassword() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  // # ISSUE
-  const token: string = searchParams.get("q")!;
+  const token: string = searchParams.get("q")?.replace(" ", "+") as string;
 
   const resetPasswordMutation = useMutation({
     mutationFn: async (data: TPassword) => {
