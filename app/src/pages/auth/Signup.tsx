@@ -32,7 +32,6 @@ function Signup() {
       return navigate("/auth/otp-verification");
     },
     onError: (error: any) => {
-      console.log(error);
       toast.error(error?.response?.data?.message);
     },
     onSettled: () => {
@@ -54,7 +53,6 @@ function Signup() {
       });
     },
     onError: (error: any) => {
-      console.log(error);
       toast.error(error?.response?.data?.message);
     },
     onSettled: () => {

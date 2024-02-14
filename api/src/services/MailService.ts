@@ -79,7 +79,7 @@ class MailService {
     const emailSent: SendEmailCommandOutput = await this.awsSes.sendEmail(
       params
     );
-    console.log(
+    console.info(
       `Otp verification email successfully sent to ${email} with message id ${emailSent.MessageId}}`
     );
   }
@@ -119,7 +119,7 @@ class MailService {
     const emailSent: SendEmailCommandOutput = await this.awsSes.sendEmail(
       params
     );
-    console.log(
+    console.info(
       `Otp verification email successfully sent to ${email} with message id ${emailSent.MessageId}}`
     );
   }
@@ -148,7 +148,7 @@ class MailService {
     const emailSent: SendEmailCommandOutput = await this.awsSes.sendEmail(
       params
     );
-    console.log(
+    console.info(
       `Onboarding email successfully sent to ${email} with message id ${emailSent.MessageId}}`
     );
   }

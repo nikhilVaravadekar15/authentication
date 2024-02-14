@@ -4,7 +4,6 @@ import {
   TAuthSignup,
   TEmail,
   TPassword,
-  TTokens,
   TVerifyAccount,
 } from "../types";
 import userRepository from "../repository/UserRepository";
@@ -258,11 +257,8 @@ class AuthController {
         });
       }
 
-      console.log(token.split("+"));
       // split token
       const [receivedHash, expire_time] = token.split("+");
-      console.log(receivedHash);
-      console.log(expire_time);
 
       // check current time is grater than expire_time
       if (Date.now() > +expire_time) {
@@ -503,6 +499,57 @@ class AuthController {
         status: 401,
         error: `${error.toString()}`,
         message: "Unauthorized",
+        path: `${request.route.path}`,
+      });
+    }
+  }
+
+  async logout(request: IRequest, response: Response) {
+    try {
+      // Get userdata from request set by the auth middleware
+      const { email }: TEmail = request.userdata!;
+      // check if email exists
+      if (!email) {
+        throw new Error("Unauthorized");
+      }
+
+      // check User.Email exists
+      let user = await userRepository.getUserByEmailID({
+        email: email,
+      });
+      if (!user) {
+        throw new Error("Unauthorized");
+      }
+
+      // delete token
+      const token = await TokenRepository.deleteTokenByUserId(user.id);
+      if (!token) {
+        throw new Error("Unauthorized");
+      }
+
+      response.clearCookie("refreshToken");
+      response.clearCookie("accessToken");
+
+      // return response
+      return response.status(200).json({
+        timestamp: new Date().toISOString(),
+        status: 200,
+        error: "",
+        message: "User logged out",
+        user: {},
+        path: `${request.route.path}`,
+      });
+    } catch (error: any) {
+      console.error(error);
+
+      response.clearCookie("refreshToken");
+      response.clearCookie("accessToken");
+
+      return response.status(401).json({
+        timestamp: new Date().toISOString(),
+        status: 401,
+        error: `${error.toString()}`,
+        message: "User logged out",
         path: `${request.route.path}`,
       });
     }

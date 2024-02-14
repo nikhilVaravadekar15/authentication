@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { TEmail, TPassword, TUsersignin, TUsersignup } from "../types";
 
 export const VITE_PUBLIC_BASE_API_URL: string = import.meta.env
@@ -96,4 +94,12 @@ export async function verifyOtp({
 
 export async function refresh() {
   return await axios.get("/api/auth/refresh", axiosRequestConfig);
+}
+
+export async function logout() {
+  return await axios.get("/api/auth/logout", axiosRequestConfig);
+}
+
+export async function getUserData() {
+  return await axios.get("/api/user-data", axiosRequestConfig);
 }

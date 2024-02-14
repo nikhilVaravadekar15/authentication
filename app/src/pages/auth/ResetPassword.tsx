@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { TPassword } from "../../types";
@@ -27,7 +26,6 @@ function ResetPassword() {
       return navigate("/auth/password-reset-done");
     },
     onError: (error: any) => {
-      console.log(error);
       toast.error(error?.response?.data?.message);
     },
     onSettled: () => {

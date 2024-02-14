@@ -15,15 +15,14 @@ import NotFound from "./pages/NotFound";
 import Signin from "./pages/auth/Signin";
 import Signup from "./pages/auth/Signup";
 import Index from "./pages/app/Index";
-import PasswordResetMail from "./pages/auth/PasswordResetMail";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import SignupVerified from "./pages/auth/SignupVerified";
-import OtpVerification from "./pages/auth/OtpVerification";
 import ResetPassword from "./pages/auth/ResetPassword";
 import RootLayout from "./components/layout/RootLayout";
+import OtpVerification from "./pages/auth/OtpVerification";
 import PasswordResetDone from "./pages/auth/PasswordResetDone";
+import PasswordResetMail from "./pages/auth/PasswordResetMail";
 import { UserContext } from "./components/provider/UserContextProvider";
-import { toast } from "react-toastify";
 
 function App() {
   const { setUserDetails } = React.useContext(UserContext);
@@ -32,15 +31,9 @@ function App() {
     refresh()
       .then((data) => {
         const user: TUser = data.data?.user;
-        console.log(user);
         setUserDetails(user);
       })
-      .catch((error) => {
-        toast.error(error.response?.data?.message);
-      })
-      .finally(() => {
-        toast.dismiss();
-      });
+      .catch(() => {});
   }, []);
 
   return (

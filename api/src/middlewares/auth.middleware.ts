@@ -13,7 +13,6 @@ export default async function authMiddleware(
     const { accessToken, refreshToken }: TTokens = request.cookies!;
     // check if tokens exists
     if (!accessToken || !refreshToken) {
-      console.log(request.cookies);
       throw new Error();
     }
 

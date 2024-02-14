@@ -27,7 +27,6 @@ function ForgetPassword() {
       return navigate("/auth/password-reset-mail");
     },
     onError: (error: any) => {
-      console.log(error);
       toast.error(error?.response?.data?.message);
     },
     onSettled: () => {

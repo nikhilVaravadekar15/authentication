@@ -23,12 +23,10 @@ function OtpVerification() {
         otp: parseInt(inputOtp),
       });
     },
-    onSuccess: (data: any) => {
-      console.log(data);
+    onSuccess: () => {
       return navigate("/auth/sign-up-verified");
     },
     onError: (error: any) => {
-      console.log(error);
       toast.error(error?.response?.data?.message);
     },
     onSettled: () => {
