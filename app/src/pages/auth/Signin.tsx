@@ -4,16 +4,15 @@ import { useFormik } from "formik";
 import { userSignin } from "../../http";
 import { toast } from "react-toastify";
 import { signinSchema } from "../../zod";
-import { TUsersignin } from "../../types";
+import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
+import { TUser, TUsersignin } from "../../types";
 import { useMutation } from "@tanstack/react-query";
-import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../../components/layout/AuthLayout";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { UserContext } from "../../components/provider/UserContextProvider";
 
 function Signin() {
-  const navigate = useNavigate();
   const { setUserDetails } = React.useContext(UserContext);
 
   const signInMutation = useMutation({
@@ -21,9 +20,11 @@ function Signin() {
       return await userSignin(data);
     },
     onSuccess: (data: any) => {
-      console.log(data);
-      setUserDetails(data?.data?.user);
-      return navigate("/app");
+      setUserDetails({
+        email: data?.data?.user?.email,
+        username: data?.data?.user?.username,
+        is_verified: data?.data?.user?.is_verified,
+      } as TUser);
     },
     onError: (error: any) => {
       console.log(error);

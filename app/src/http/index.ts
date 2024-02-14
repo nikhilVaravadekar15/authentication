@@ -1,8 +1,12 @@
-import axios, { AxiosRequestConfig } from "axios";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { TEmail, TPassword, TUsersignin, TUsersignup } from "../types";
 
+export const VITE_PUBLIC_BASE_API_URL: string = import.meta.env
+  .VITE_PUBLIC_BASE_API_URL!;
 const axiosRequestConfig: AxiosRequestConfig = {
-  baseURL: import.meta.env.VITE_PUBLIC_BASE_API_URL!,
+  baseURL: VITE_PUBLIC_BASE_API_URL,
   withCredentials: true,
   headers: {
     Accept: "application/json",
@@ -88,4 +92,8 @@ export async function verifyOtp({
     },
     axiosRequestConfig
   );
+}
+
+export async function refresh() {
+  return await axios.get("/api/auth/refresh", axiosRequestConfig);
 }

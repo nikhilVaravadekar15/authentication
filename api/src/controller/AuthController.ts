@@ -1,5 +1,12 @@
 import { Request, Response } from "express";
-import { TAuthSignup, TEmail, TPassword, TVerifyAccount } from "../types";
+import {
+  IRequest,
+  TAuthSignup,
+  TEmail,
+  TPassword,
+  TTokens,
+  TVerifyAccount,
+} from "../types";
 import userRepository from "../repository/UserRepository";
 import hashService from "../services/HashService";
 import OtpService from "../services/OtpService";
@@ -132,8 +139,16 @@ class AuthController {
       }
 
       // set token in cookie
-      response.cookie("accessToken", accessToken);
-      response.cookie("refreshToken", refreshToken);
+      response.cookie("accessToken", accessToken, {
+        maxAge: Date.now() + 1000 * 60 * 60 * 24,
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      });
+      response.cookie("refreshToken", refreshToken, {
+        maxAge: Date.now() + 1000 * 60 * 60 * 24,
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      });
 
       // return response
       return response.status(200).json({
@@ -446,6 +461,48 @@ class AuthController {
         status: 500,
         error: `${error.toString()}`,
         message: "Something went wrong, please try again.",
+        path: `${request.route.path}`,
+      });
+    }
+  }
+
+  async refresh(request: IRequest, response: Response) {
+    try {
+      // Get userdata from request set by the auth middleware
+      const { email }: TEmail = request.userdata!;
+      // check if email exists
+      if (!email) {
+        throw new Error("Unauthorized");
+      }
+
+      // check User.Email exists
+      let user = await userRepository.getUserByEmailID({
+        email: email,
+      });
+      if (!user) {
+        throw new Error("Unauthorized");
+      }
+
+      // return response
+      return response.status(200).json({
+        timestamp: new Date().toISOString(),
+        status: 200,
+        error: "",
+        message: "Data refreshed",
+        user: new UserDto(user!.username, user.email, user.is_verified),
+        path: `${request.route.path}`,
+      });
+    } catch (error: any) {
+      console.error(error);
+
+      response.clearCookie("refreshToken");
+      response.clearCookie("accessToken");
+
+      return response.status(401).json({
+        timestamp: new Date().toISOString(),
+        status: 401,
+        error: `${error.toString()}`,
+        message: "Unauthorized",
         path: `${request.route.path}`,
       });
     }
